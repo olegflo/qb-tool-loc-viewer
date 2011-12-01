@@ -16,6 +16,7 @@ function initialize() {
 	};
 	map_canvas = new google.maps.Map(document.getElementById('map_canvas'), mapOptions);
 	
+	drawOnLoad();
 	$('#qb_server_url').focus();
 	$('#qb_draw').click(draw);
 	$('#qb_server_url').keypress(function(event) {
@@ -24,6 +25,16 @@ function initialize() {
 		}
 	});
 }
+
+/*
+function copy_to_clpbrd() {
+	$('#copy_to_clpbrd').zclip({
+        path:'ZeroClipboard.swf',
+        copy:$('#encoded_url').val()
+    });
+	return false;
+}
+*/
 
 function getLatLng(xmlNode) {
 	var lat = xmlNode.find('latitude').text();
@@ -46,6 +57,9 @@ function draw() {
 	if (url == '') {
 		alert('Ooops, URL can\'t be blank');
 	}
+	
+	var root = $('#encoded_url').attr('root');
+	$('#encoded_url').val(root + '?url=' + escape(url));
 	
 	$.ajax({
 		type: 'GET',
@@ -89,4 +103,12 @@ function draw() {
 			}
 		}
 	});
+}
+
+function drawOnLoad() {
+	var url = $('#url_param').val();
+	if (url != undefined) {
+		$('#qb_server_url').val(url);
+		draw();
+	}
 }
