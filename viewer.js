@@ -6,7 +6,6 @@ var infoWindow = null;
 var markersArray = new Array();
 
 function initialize() {
-	// Google Map
 	var latlng = new google.maps.LatLng(CENTER_LAT, CENTER_LNG);
 
 	var mapOptions = {
@@ -42,7 +41,6 @@ function nextPage() {
 	draw();
 }
 
-
 function copy_to_clpbrd() {
 	$('#copy_to_clpbrd').zclip({
         path:'lib/ZeroClipboard.swf',
@@ -67,7 +65,6 @@ function clearOverlays() {
 	}
 }
 
-
 function draw() {
 	var url = $('#qb_server_url').val();
 	if (url == '') {
@@ -91,10 +88,11 @@ function draw() {
 			
 			clearOverlays();
 			
-			$(xml).find('geo-data').each(function() {
+			$(xml).find('geo-datum').each(function() {
 				flag = true;
 				
 				$('#server_response').html(xml);
+				
 				/*
 				var scrollHeight = $('#server_response')[0].scrollHeight;
 				$('#server_response').css('height', scrollHeight);
@@ -121,7 +119,7 @@ function draw() {
 					infoWindow.open(map_canvas, marker);	
 				});    
 			});
-			if (!flag) {
+			if (!flag && url != '') {
 				alert('Ooops, probably URL is wrong.');
 			}
 		}

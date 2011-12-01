@@ -65,7 +65,7 @@
 			<h1>QuickBlox Tool: Location Viewer</h1>
 			<p>
 				<label for="qb_server_url"><strong>Geopos query (URL)</strong></label><br>
-				<input value="http://geopos.quickblox.com/geodata/find" type="text" name="qb_server_url" id="qb_server_url" placeholder="Enter URL here" /> 
+				<input value="http://location.quickblox.com/geodata/find.xml?page=1" type="text" name="qb_server_url" id="qb_server_url" placeholder="Enter URL here" /> 
 				<input type="button" id="qb_draw" value="Draw markers" />
 				<input type="button" id="next_page" value="Next page" />
 				<img id="loader" src="ajax-loader.gif">
