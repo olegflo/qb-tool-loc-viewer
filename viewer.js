@@ -19,6 +19,7 @@ function initialize() {
 	drawOnLoad();
 	$('#qb_server_url').focus();
 	$('#qb_draw').click(draw);
+	$('#next_page').click(nextPage);
 	$('#qb_server_url').keypress(function(event) {
 		if (event.which == 13) {
 			draw();
@@ -26,15 +27,30 @@ function initialize() {
 	});
 }
 
-/*
+function nextPage() {
+	var url = $('#qb_server_url').val();
+	var regexStr = new RegExp('page=[0-9]*');
+	var resultStr = regexStr.exec(url);
+
+	var regexNum = new RegExp('[0-9]+');
+	var resultNum = regexNum.exec(resultStr);
+	
+	var nextPage = parseInt(resultNum) + 1;
+	var newUrl = url.replace(resultStr, 'page=' + nextPage);
+	
+	$('#qb_server_url').val(newUrl);
+	draw();
+}
+
+
 function copy_to_clpbrd() {
 	$('#copy_to_clpbrd').zclip({
-        path:'ZeroClipboard.swf',
+        path:'lib/ZeroClipboard.swf',
+		clickAfter: false,
         copy:$('#encoded_url').val()
     });
 	return false;
 }
-*/
 
 function getLatLng(xmlNode) {
 	var lat = xmlNode.find('latitude').text();
@@ -77,6 +93,13 @@ function draw() {
 			
 			$(xml).find('geo-data').each(function() {
 				flag = true;
+				
+				$('#server_response').html(xml);
+				/*
+				var scrollHeight = $('#server_response')[0].scrollHeight;
+				$('#server_response').css('height', scrollHeight);
+				*/
+				
 				var status = $(this).find('status').text();
 				var latlng = getLatLng($(this));
 				

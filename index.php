@@ -5,6 +5,7 @@
 		<script type="text/javascript">google.load("jquery", "1.6.4");</script>
 		<script type="text/javascript" src="https://maps.google.com/maps/api/js?sensor=false&language=en"></script>
 		<script type="text/javascript" src="viewer.js"></script>
+		<script type="text/javascript" src="lib/jquery.zclip.min.js"></script>
 		<meta charset="UTF-8">
 		<title>QuickBlox Tool: Location Viewer</title>
 		<style type="text/css">
@@ -25,6 +26,15 @@
 				position:absolute;
 				margin-left:5px;
 				margin-top:-4px;
+			}
+			#copy_to_clpbrd {
+				margin-left:10px;
+			}
+			#server_response {
+				width:99%;
+				min-height:600px;
+				background:#f1f1f1;
+				margin-top:10px;
 			}
 		</style>
 	</head>
@@ -55,16 +65,20 @@
 			<h1>QuickBlox Tool: Location Viewer</h1>
 			<p>
 				<label for="qb_server_url"><strong>Geopos query (URL)</strong></label><br>
-				<input value="http://geopos.quickblox.com/geodata/find.xml" type="text" name="qb_server_url" id="qb_server_url" placeholder="Enter URL here" /> 
+				<input value="http://geopos.quickblox.com/geodata/find" type="text" name="qb_server_url" id="qb_server_url" placeholder="Enter URL here" /> 
 				<input type="button" id="qb_draw" value="Draw markers" />
+				<input type="button" id="next_page" value="Next page" />
 				<img id="loader" src="ajax-loader.gif">
 			</p>
 			<p>
 				<label for="encoded_url"><strong>Link to the current page</strong></label><br>
-				<input type="text" name="encoded_url" id="encoded_url" root="<?php echo curPageURL(); ?>" value="" /> <!-- <a href="javascript:void(0)" id="copy_to_clpbrd" onclick="copy_to_clpbrd()">copy to clipboard</a> -->
+				<input type="text" name="encoded_url" id="encoded_url" root="<?php echo curPageURL(); ?>" value="" /> 
+				<a href="#" id="copy_to_clpbrd" onclick="copy_to_clpbrd()">copy to clipboard</a>
 			</p>
 			
 			<div id="map_canvas"></div>
+			
+			<textarea name="server_response" id="server_response"></textarea>
 		</div>
 	</body>
 </html>
